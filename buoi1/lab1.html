@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        
+        form {
+            padding: 30px 50px;
+            border: 3px solid black;
+            border-radius: 15px;
+            width: fit-content;
+            text-align: center;
+        }
+        
+        form h1 {
+            margin: 0;
+            padding: 10px;
+        }
+        
+        form div {
+            margin: 10px 0;
+        }
+        
+        form div input {
+            padding: 5px;
+            font-size: 18px;
+            outline: none;
+        }
+        
+        #result {
+            background-color: orangered;
+        }
+        
+        .button {
+            padding-top: 15px;
+        }
+        
+        .button button {
+            width: 30px;
+            height: 30px;
+            font-weight: bold;
+            margin: 0 5px;
+            border: 3px solid black;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        .button button:hover {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        // Bài 1
+        var bai1_so1 = Number(prompt("Hãy nhập vào số thứ nhất: "));
+        var bai1_so2 = Number(prompt("Hãy nhập vào số thứ hai: "));
+        alert("Tổng 2 số bạn vừa nhập vào là: " + (bai1_so1 + bai1_so2))
+
+        // Bài 2
+        var a = Number(prompt("Hãy nhập vào cạnh thứ nhất: "));
+        var b = Number(prompt("Hãy nhập vào cạnh thứ hai: "));
+        var c = Number(prompt("Hãy nhập vào cạnh thứ ba: "));
+        if (!(a + b > c || a + c > b || b + c > a) || (a <= 0 || b <= 0 || c <= 0)) {
+            alert("Bạn đã không nhập đúng cạnh của một tam giác");
+        } else {
+            var p = (a + b + c) / 2;
+            var s = Math.sqrt(p * (p - a) * (p - b) * (p - c));
+            alert("Diện tích 3 cạnh tam giác bạn vừa nhập là " + s.toFixed(2));
+        }
+    </script>
+
+    <!-- Bài 3 -->
+    <form>
+        <h1>PHÉP TÍNH</h1>
+        <div>
+            <label for="so_thu_1">Số thứ 1: </label>
+            <input id="so_thu_1" type="text" name="so_thu_1">
+        </div>
+        <div>
+            <label for="so_thu_2">Số thứ 2: </label>
+            <input type="text" id="so_thu_2" name="so_thu_2">
+        </div>
+        <div>
+            <label>Kết quả: </label>
+            <input id="result" type="text" readonly>
+        </div>
+        <div class="button">
+            <button type="button" onclick="calculate('+')">+</button>
+            <button type="button" onclick="calculate('-')">-</button>
+            <button type="button" onclick="calculate('*')">*</button>
+            <button type="button" onclick="calculate('/')">/</button>
+            <button type="button" onclick="calculate('%')">%</button>
+            <script>
+                function calculate(type) {
+                    var so_thu_1 = Number(document.getElementById('so_thu_1').value);
+                    var so_thu_2 = Number(document.getElementById('so_thu_2').value);
+                    var result = 0;
+                    switch (type) {
+                        case '+':
+                            result = so_thu_1 + so_thu_2;
+                            break;
+                        case '-':
+                            result = so_thu_1 - so_thu_2;
+                            break;
+                        case '*':
+                            result = so_thu_1 * so_thu_2;
+                            break;
+                        case '/':
+                            result = so_thu_1 / so_thu_2;
+                            break;
+                        case '%':
+                            result = so_thu_1 % so_thu_2;
+                            break;
+                    }
+                    document.getElementById('result').value = result;
+                }
+            </script>
+        </div>
+    </form>
+
+</body>
+
+</html>
