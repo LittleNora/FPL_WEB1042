@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 2</title>
+    <style>
+        button {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button onclick="bai1()">Kiểm tra chẵn lẻ (Bài 1)</button> <br>
+    <button onclick="bai2()">Tính diện tích tam giác (Bài 2)</button> <br>
+    <button onclick="bai3()">Đoán số ngẫu nhiên (Bài 3)</button> <br>
+    <button onclick="bai4()">Kiểm tra số chính phương (Bài 4)</button> <br>
+    <button onclick="bai5()">Giải phương trình bật 2 (Bài 5)</button> <br>
+    <button onclick="bai6()">Tính ngày theo tháng (Bài 6)</button>
+
+    <script>
+        // Nhập số nguyên dương
+        function inputNumPostive(nameOfNum) {
+            let num;
+            do {
+                num = Number(prompt("Hãy nhập vào " + nameOfNum + " : "));
+                if (Number.isNaN(num) || num <= 0) {
+                    alert('Giá trị bạn nhập không hợp lệ. Hãy nhập lại.')
+                } else {
+                    return num;
+                }
+            } while (Number.isNaN(num) || num <= 0);
+        }
+
+
+        // Nhập số
+        function inputNum(nameOfNum) {
+            let num;
+            do {
+                num = Number(prompt("Hãy nhập vào " + nameOfNum + " : "));
+                if (Number.isNaN(num)) {
+                    alert('Giá trị bạn nhập không hợp lệ. Hãy nhập lại.')
+                } else {
+                    return num;
+                }
+            } while (Number.isNaN(num));
+        }
+
+
+        // Bài tập 1: Nhập vào 1 số dương x từ hội thoại. In ra màn hình số đó là số chẵn hay lẻ
+        function bai1() {
+            let so1 = inputNumPostive('một số nguyên dương');
+            if (so1 % 2 === 0) {
+                alert(so1 + ' là số chẵn');
+            } else {
+                alert(so1 + ' là số lẻ');
+            }
+        }
+
+
+        // Bài tập 2. Xây dựng hàm tính diện tích tam giác theo công thức HERON. Nhập vào 3 cạnh của tam giác, tính diện tích của tam giác đó (chú ý kiểm tra xem 3 cạnh có lập thành 1 tam giác hay không)
+        function bai2() {
+            let a = inputNumPostive('cạnh thứ nhất');
+            let b = inputNumPostive('cạnh thứ hai');
+            let c = inputNumPostive('cạnh thứ ba');
+            if (a + b > c || a + c > b || b + c > a) {
+                let p = (a + b + c) / 2;
+                let s = Math.sqrt(p * (p - a) * (p - b) * (p - c));
+                alert("Diện tích 3 cạnh tam giác bạn vừa nhập là " + s.toFixed(2));
+            } else {
+                alert("Bạn đã không nhập đúng cạnh của một tam giác");
+            }
+        }
+
+        // Bài tập 3. Nhập vào từ hội thoại 1 số nguyên từ 0. .99.Máy tính sinh ra ngẫu nhiên 1 số từ 0. .99.Đưa ra thông báo xem số bạn nhập vào và số máy tính sinh ra có trùng nhau hay không ? Và in ra 2 số đó.
+        function bai3() {
+            let numRandom = Math.floor(Math.random() * 99);
+            let numInput;
+            console.log(numRandom);
+            do {
+                numInput = Number(prompt("Hãy nhập vào số bạn dự đoán: "));
+                if (Number.isNaN(numInput) || numInput < 0 || numInput > 99) {
+                    alert('Giá trị bạn nhập không hợp lệ. Hãy nhập lại.')
+                } else {
+                    break;
+                }
+            } while (Number.isNaN(numInput) || numInput < 0 || numInput > 99);
+            if (numInput === numRandom) {
+                alert("Giá trị bạn dự đoán trùng với giá trị ngẫu nhiên mà máy tính tạo ra. Đó là số " + numRandom);
+            } else {
+                alert(`
+                Bạn dự đoán sai mất rồi.\n
+                Giá trị bạn nhập là: ${numInput}\n
+                Giá trị ngẫu nhiên mà máy tính tạo ra là: ${numRandom}`)
+            }
+            return;
+        }
+
+        //Bài tập 4. Nhập vào 1 số nguyên dương x bất kỳ từ hội thoại. Kiểm tra xem số đó có phải số chính phương hay không? (yêu cầu xây dựng hàm kiểm tra số chính phương)
+        function bai4() {
+            let numInput = inputNumPostive("số bạn muốn kiểm tra");
+            if (checkSoChinhPhuong(numInput)) {
+                alert(`${numInput} là số chính phương`);
+            } else {
+                alert(`${numInput} không là số chính phương`);
+            }
+        }
+
+        function checkSoChinhPhuong(numCheck) {
+            for (let index = 2; index < numCheck; index++) {
+                if (index * index === numCheck) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Bài tập 5. Viết mã javascript để giải phương trình bậc hai với các hệ số a, b, c nhập từ bàn phím. (yêu cầu xây dựng hàm Biện luận giải phương trình bậc 2)
+        function bai5() {
+            let a = inputNum("hệ số a");
+            let b = inputNum("hệ số b");
+            let c = inputNum("hệ số c");
+            giaiPt2(a, b, c);
+        }
+
+        function giaiPt1(a, b) {
+            let result
+            if (a === 0) {
+                if (b === 0) {
+                    alert("Phương trình có vô số nghiệm");
+                } else {
+                    alert("Phương trình vô nghiệm")
+                }
+            } else {
+                result = -b / a;
+                alert("Phương trình đã cho có nghiệm là: " + result.toFixed(1));
+            }
+        }
+
+        function giaiPt2(a, b, c) {
+            let x, x1, x2;
+            if (a === 0) {
+                alert("Đây là phương trình bậc nhất");
+                giaiPt1(b, c);
+            } else {
+                let delta = Math.pow(b, 2) - 4 * a * c;
+                if (delta < 0) {
+                    alert("Phương trình vô nghiệm");
+                    return;
+                } else if (delta === 0) {
+                    x = -b / (2 * a);
+                    alert("Phương trình có nghiệm kép x1 = x2 = " + x.toFixed(2));
+                } else {
+                    x1 = (-b + Math.sqrt(delta)) / (2 * a);
+                    x2 = (-b - Math.sqrt(delta)) / (2 * a);
+                    alert(`
+                    Phương trình có 2 nghiệm phân biệt:
+                    x1 = ${x1.toFixed(2)}
+                    x2 = ${x2.toFixed(2)}`);
+                }
+            }
+        }
+
+        // Bài tập 6. Viết hàm nhập vào một tháng m hợp lệ và cho biết tháng đó có bao nhiêu ngày?
+        function bai6() {
+            let month;
+            let year;
+            do {
+                month = Number(prompt("Hãy nhập vào tháng cần kiểm tra: "));
+                if (Number.isNaN(month) || month <= 0 || month > 12) {
+                    alert('Giá trị bạn nhập không hợp lệ. Hãy nhập lại.')
+                } else {
+                    break;
+                }
+            } while (Number.isNaN(month) || month <= 0 || month > 12);
+            year = inputNumPostive("năm tương ứng");
+            checkNgay(month, year)
+        }
+
+        function checkNgay(month, year) {
+            let day;
+            switch (month) {
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                case 12:
+                    day = 31;
+                    break;
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    day = 30;
+                    break;
+                case 2:
+                    if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
+                        day = 29;
+                    } else {
+                        day = 28;
+                    }
+                    break;
+            }
+            alert(`Tháng ${month} năm ${year} có ${day} ngày`);
+        }
+
+    </script>
+</body>
+
+</html>
