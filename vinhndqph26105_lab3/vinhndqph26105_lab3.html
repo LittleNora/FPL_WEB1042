@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="vinhndqph26105_lab3.css">
+    <title>Lab 3</title>
+</head>
+
+<body>
+    
+    <button onclick="bai1()">Tính tổng số chia hết cho 3 (Bài 1)</button> <br>
+    <button onclick="bai2()">Nhập mảng (Bài 2)</button> <br>
+    <button onclick="bai3()">Đoán số ngẫu nhiên (Bài 3)</button> <br>
+    <button onclick="bai4()">Máy tính (Bài 4)</button> <br>
+    <div id="box">
+        <h1>PHÉP TÍNH</h1>
+        <form action="">
+            <input type="text" name="show" readonly>
+            <br>
+            <input type="button" value="7" name="7" onclick="show.value=toantu(7)">
+            <input type="button" value="8" name="8" onclick="show.value=toantu(8)">
+            <input type="button" value="9" name="9" onclick="show.value=toantu(9)">
+            <input type="button" value="+" name="plus" onclick="show.value=toanhang('+')"> <br>
+            <input type="button" value="4" name="4" onclick="show.value=toantu(4)">
+            <input type="button" value="5" name="5" onclick="show.value=toantu(5)">
+            <input type="button" value="6" name="6" onclick="show.value=toantu(6)">
+            <input type="button" value="-" name="minus" onclick="show.value=toanhang('-')"> <br>
+            <input type="button" value="1" name="1" onclick="show.value=toantu(1)">
+            <input type="button" value="2" name="2" onclick="show.value=toantu(2)">
+            <input type="button" value="3" name="3" onclick="show.value=toantu(3)">
+            <input type="button" value="x" name="multiply" onclick="show.value=toanhang('*')"> <br>
+            <input type="button" value="0" name="0" onclick="show.value=toantu(0)">
+            <input type="button" value="C" name="delete" onclick="show.value=xoadl()">
+            <input type="button" value="=" name="calculate" onclick="show.value=tinh()">
+            <input type="button" value="/" name="divide" onclick="show.value=toanhang('/')"> <br>
+        </form>
+    </div>
+    <script src="vinhndqph26105_lab3.js"></script>
+</body>
+
+</html>

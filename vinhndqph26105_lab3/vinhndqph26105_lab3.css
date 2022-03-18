@@ -1,0 +1,25 @@
+#box {
+    width: 620px;
+    margin: auto;
+}
+
+input[type="button"] {
+    width: 50px;
+    height: 50px;
+    margin: 1px;
+}
+
+input[type="text"] {
+    width: 210px;
+    height: 40px;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+button {
+    margin: 10px 0;
+}
+
+#box {
+    display: none;
+}
