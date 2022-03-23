@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 4</title>
+</head>
+
+<body>
+    <button onclick="hienThiSV()">Hiển thị</button>
+    <!-- <button onclick="sv.hienThi()">Hiển thị</button> -->
+
+    <script>
+        // Bài 4
+        var sinhVien = [];
+        var n = 3;
+        for (let i = 0; i < n; i++) {
+            let sv = new Object();
+            sv.hoTen = prompt(`Nhập vào họ và tên sinh viên ${i + 1}: `);
+            do {
+                sv.diem = Number(prompt(`Hãy nhập vào điểm của sinh viên ${i + 1}: `));
+                if (Number.isNaN(sv.diem) || sv.diem < 0 || sv.diem > 10) {
+                    alert('Giá trị bạn nhập không hợp lệ. Hãy nhập lại.')
+                } else {
+                    break;
+                }
+            } while (true);
+
+            sv.hienThi = function() {
+                if (this.diem >= 5) {
+                    this.hocLuc = 'Đậu'
+                } else {
+                    this.hocLuc = 'Rớt'
+                }
+
+                document.write(`<h3>Họ tên: ${this.hoTen}</h3>`);
+                document.write(`<h3>Điểm TB: ${this.diem}</h3>`);
+                document.write(`<h3>Học lực: ${this.hocLuc}</h3>
+                <br>
+                <br>`);
+            }
+            sinhVien.push(sv);
+        }
+
+        function hienThiSV() {
+            for (let i = 0; i < n; i++) {
+                sinhVien[i].hienThi();
+            }
+        }
+
+        // let sv = new Object();
+        //     sv.hoTen = prompt(`Nhập vào họ và tên sinh viên: `);
+        //     do {
+        //         sv.diem = Number(prompt(`Hãy nhập vào điểm của sinh viên: `));
+        //         if (Number.isNaN(sv.diem) || sv.diem < 0 || sv.diem > 10) {
+        //             alert('Giá trị bạn nhập không hợp lệ. Hãy nhập lại.')
+        //         } else {
+        //             break;
+        //         }
+        //     } while (true);
+
+        //     sv.hienThi = function() {
+        //         if (this.diem >= 5) {
+        //             this.hocLuc = 'Đậu'
+        //         } else {
+        //             this.hocLuc = 'Rớt'
+        //         }
+
+        //         document.write(`<h3>Họ tên: ${this.hoTen}</h3>`);
+        //         document.write(`<h3>Điểm TB: ${this.diem}</h3>`);
+        //         document.write(`<h3>Học lực: ${this.hocLuc}</h3>
+        //         <br>
+        //         <br>`);
+        //     }
+    </script>
+</body>
+
+</html>
