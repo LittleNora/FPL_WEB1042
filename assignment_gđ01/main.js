@@ -148,7 +148,7 @@ var auto;
 autoSlideBtn.onclick = function() {
     auto = setInterval(function() {
         nextBtn.click();
-    }, 4000);
+    }, 3000);
 }
 
 stopAutoSlideBtn.onclick = function() {
