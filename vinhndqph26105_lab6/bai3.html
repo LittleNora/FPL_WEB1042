@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 3</title>
+    <style>
+        form span {
+            color: red;
+        }
+        
+        .form-box {
+            width: 430px;
+            border: 1px solid #cdcdcd;
+            padding: 30px;
+            line-height: 35px;
+            margin: auto;
+        }
+        
+        .form-box label {
+            display: inline-block;
+            width: 140px;
+            font-weight: bold;
+        }
+        
+        #submit-btn {
+            width: 80px;
+            height: 40px;
+            background: green;
+            color: #fff;
+        }
+        
+        .clear {
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-box">
+        <h1>Đặt hàng</h1>
+        <form action="" onsubmit="return kiemtra()">
+            <label for="">Sản phẩm</label> <input class="form-control" type="text" name="name" id="san-pham"> <span></span> <br>
+            <label for="">Loại</label>
+            <select name="loai" id="loai" class="form-control">
+                <option value=""></option>
+                <option value="Đồ điện tử">Đồ điện tử</option>
+                <option value="Đồ gia dụng">Đồ gia dụng</option>
+            </select> <span></span> <br>
+            <label for="">Đơn giá</label> <input class="form-control" type="number" min="0" name="price" id="price"> <span></span> <br>
+            <label for="">Nơi nhận hàng</label>
+            <input type="radio" onclick="hienthi(false);" name="noi-nhan" value="Nội thành"> Nội thành
+            <input type="radio" onclick="hienthi(true);" name="noi-nhan" value="Ngoại thành"> Ngoại thành
+            <br>
+            <div class="phi_vc">
+                <label for="">Phí vận chuyển</label> <input class="form-control" type="number" min="0" name="ship-price" value="10000"> <span></span> <br>
+            </div>
+            <hr>
+            <button type="submit" id="submit-btn">Đặt mua</button>
+            <div class="clear"></div>
+        </form>
+    </div>
+
+    <script>
+        var phi_vc = document.querySelector('.phi_vc');
+        phi_vc.style.display = 'none';
+
+        function hienthi(visible) {
+            phi_vc.style.display = visible ? '' : 'none';
+        }
+
+        function kiemtra() {
+            var sp = document.getElementById('san-pham');
+            if (sp.value.length == 0) {
+                alert('Vui lòng nhập tên sản phẩm!');
+                return false;
+            }
+            var gia = document.getElementById('price');
+            if (gia.value.length == 0) {
+                alert('Vui lòng nhập giá!');
+                return false;
+            } else if (isNaN(gia.value)) {
+                alert('Vui lòng nhập số!');
+                return false;
+            } else if (parseFloat(gia.value) <= 0) {
+                alert('Vui lòng nhập số dương!');
+                return false;
+            }
+            var loai = document.getElementById('loai');
+            if (loai.value.length == 0) {
+                alert('Vui lòng chọn loại sản phẩm!');
+                return false;
+            }
+            var radios = document.getElementsByName('noi-nhan');
+            if (!radios[0].checked && !radios[1].checked) {
+                alert('Vui lòng chọn nơi nhận hàng!');
+                return false;
+            }
+            alert('Chúc mừng bạn đã nhập đúng');
+            return true;
+        }
+    </script>
+</body>
+
+</html>

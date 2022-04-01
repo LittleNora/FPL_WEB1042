@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 2</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        img {
+            width: 500px;
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="./img/anh1.jpg" alt="">
+    <div class="buttons">
+        <button class="button" id="first">First</button>
+        <button class="button" id="prev">Prev</button>
+        <button class="button" id="next">Next</button>
+        <button class="button" id="last">Last</button>
+    </div>
+</body>
+<script>
+    var img = [
+        './img/anh1.jpg',
+        './img/anh2.jpg',
+        './img/anh3.png',
+        './img/anh4.png',
+        './img/anh5.png',
+    ];
+    var index = 0;
+    const lengthImg = img.length;
+    const imgElement = document.querySelector('img');
+    const firstBtn = document.querySelector('#first');
+    const prevBtn = document.querySelector('#prev');
+    const nextBtn = document.querySelector('#next');
+    const lastBtn = document.querySelector('#last');
+    console.log(imgElement.style.src);
+
+    firstBtn.onclick = function() {
+        index = 0;
+        imgElement.src = img[index];
+    }
+
+    lastBtn.onclick = function() {
+        index = lengthImg - 1;
+        imgElement.src = img[index];
+    }
+
+    prevBtn.onclick = function() {
+        if (index === 0) {
+            index = lengthImg - 1;
+        } else {
+            index--;
+        }
+        imgElement.src = img[index];
+    }
+
+    nextBtn.onclick = function() {
+        if (index === lengthImg - 1) {
+            index = 0;
+        } else {
+            index++;
+        }
+        imgElement.src = img[index];
+    }
+</script>
+
+</html>

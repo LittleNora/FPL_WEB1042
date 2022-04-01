@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 1</title>
+    <style>
+        .dangki span {
+            color: red;
+        }
+        
+        .dangki {
+            width: 430px;
+            border: 1px solid #cdcdcd;
+            padding: 0 30px;
+            line-height: 35px;
+            margin: auto;
+        }
+        
+        .dangki label {
+            display: inline-block;
+            width: 140px;
+            font-weight: bold;
+        }
+        
+        .dangki input[type="number"] {
+            width: 30px;
+        }
+        
+        .dangki input[type="submit"] {
+            width: 80px;
+            height: 40px;
+            background: green;
+            color: #fff;
+        }
+        
+        .nut,
+        h1 {
+            text-align: center;
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dangki">
+        <h1>Form đăng ký</h1>
+        <label for="">Họ tên (<span>*</span>)</label><input type="text" name="name"> <span></span><br>
+        <label for="">Email (<span>*</span>)</label><input type="text" name="mail"> <span></span><br>
+        <label for="">User (<span>*</span>)</label><input type="text" name="user"> <span></span><br>
+        <label for="">Mật khẩu (<span>*</span>)</label><input type="text" name="pass"> <span></span><br>
+        <label for="">Gõ lại mật khẩu (<span>*</span>)</label><input type="text" name="repass"> <span></span><br>
+        <label for="">Ngày sinh (<span>*</span>)</label> Ngày: <input type="number" min="1" max="31" name="day"> <span></span> Tháng: <input type="number" min="1" max="12" name="month"> <span></span> Năm: <input type="number" min="1900" max="2020" name="year">        <span></span>
+        <label for="">Giới tính</label>
+        <input type="radio" name="gender" value="Nam"> Nam
+        <input type="radio" name="gender" value="Nữ"> Nữ <br>
+        <label for="">Số điện thoại (<span>*</span>)</label> <input type="text" name="phone_number"> <span></span> <br>
+        <label for="">Sở thích</label>
+        <input type="checkbox" name="like" value="Đọc sách"> Đọc sách
+        <input type="checkbox" name="like" value="Xem phim"> Xem phim
+        <input type="checkbox" name="like" value="Đá bóng"> Đá bóng <br>
+        <p class="nut"><input type="submit" value="Đăng ký"></p>
+    </div>
+    <div class="data"></div>
+    <script>
+        var data;
+        var result;
+        var isValidate = false;
+        var dangki = document.querySelector('.dangki');
+        var dataElement = document.querySelector('.data');
+
+        const btn = document.querySelector('.nut');
+        const inputElements = document.querySelectorAll('input[type="text"], input[type="number"]');
+        const regUser = /\w/;
+
+        function isRequire(selector, name) {
+            let inputElement = document.querySelector(selector);
+            let spanElement = inputElement.nextElementSibling;
+            if (inputElement.value.trim() === '') {
+                isValidate = false;
+                inputElement.style = 'border-color: red';
+                spanElement.innerHTML = 'Bắt buộc nhập';
+            } else {
+                isValidate = true;
+                inputElement.style = 'border-color: black';
+                spanElement.innerHTML = '';
+                data.push({
+                    name: name,
+                    value: inputElement.value
+                });
+            }
+            result.push(isValidate);
+        }
+
+        function checkUser() {
+            let userElement = document.querySelector('input[name="user"]');
+            let spanElement = userElement.nextElementSibling;
+            if (userElement.value.trim() === '') {
+                isValidate = false;
+                userElement.style = 'border-color: red';
+                spanElement.innerHTML = 'Bắt buộc nhập';
+            } else {
+                if (!regUser.test(userElement)) {
+                    isValidate = false;
+                    userElement.style = 'border-color: red';
+                    spanElement.innerHTML = 'Sai định dạng';
+                } else {
+                    isValidate = true;
+                    userElement.style = 'border-color: black';
+                    spanElement.innerHTML = '';
+                    data.push({
+                        name: 'User',
+                        value: userElement.value
+                    });
+                }
+            }
+            result.push(isValidate);
+        }
+
+        function checkPass() {
+            let passElement = document.querySelector('input[name="pass"]');
+            let spanElement = passElement.nextElementSibling;
+            if (passElement.value.trim() === '') {
+                isValidate = false;
+                passElement.style = 'border-color: red';
+                spanElement.innerHTML = 'Bắt buộc nhập';
+            } else {
+                if (passElement.value.trim().length < 6) {
+                    isValidate = false;
+                    passElement.style = 'border-color: red';
+                    spanElement.innerHTML = 'Phải nhiều hơn 6 kí tự';
+                } else {
+                    isValidate = true;
+                    passElement.style = 'border-color: black';
+                    spanElement.innerHTML = '';
+                    data.push({
+                        name: 'Pass',
+                        value: passElement.value
+                    });
+                }
+            }
+            result.push(isValidate);
+        }
+
+        function checkPhone() {
+            let phoneElement = document.querySelector('[name="phone_number"]');
+            let spanElement = phoneElement.nextElementSibling;
+            if (phoneElement.value.trim() === '') {
+                isValidate = false;
+                phoneElement.style = 'border-color: red';
+                spanElement.innerHTML = 'Bắt buộc nhập';
+            } else {
+                if (phoneElement.value.trim().length < 10 || phoneElement.value.trim().length > 11) {
+                    isValidate = false;
+                    phoneElement.style = 'border-color: red';
+                    spanElement.innerHTML = 'Phải 10 hoặc 11 số';
+                } else {
+                    isValidate = true;
+                    phoneElement.style = 'border-color: black';
+                    spanElement.innerHTML = '';
+                    data.push({
+                        name: 'Số điện thoại',
+                        value: phoneElement.value
+                    });
+                }
+            }
+            result.push(isValidate);
+        }
+
+        function checkSimilar() {
+            let passElement = document.querySelector('input[name="pass"]');
+            let repassElement = document.querySelector('input[name="repass"]');
+            let spanElement = repassElement.nextElementSibling;
+            if (passElement.value !== repassElement.value) {
+                isValidate = false;
+                spanElement.innerHTML = 'Mật khẩu không trùng';
+            } else {
+                isValidate = true;
+                spanElement.innerHTML = '';
+            }
+            result.push(isValidate);
+        }
+
+        function checkRadio() {
+            let valueRadio = document.querySelector('input[type="radio"]:checked');
+            if (valueRadio) {
+                data.push({
+                    name: 'Giới tính',
+                    value: valueRadio.value
+                });
+            }
+        }
+
+        function checkCheckbox() {
+            let valueCheckbox = [];
+            valueCheckbox = document.querySelectorAll('input[type="checkbox"]:checked');
+            let newArr = [];
+            if (valueCheckbox.length > 0) {
+                let arr = Array.prototype.slice.call(valueCheckbox);
+                arr.forEach(function(eachArr) {
+                    newArr.push(eachArr.value);
+                })
+                data.push({
+                    name: 'Sở thích',
+                    value: newArr
+                });
+            }
+        }
+
+
+        btn.onclick = function() {
+            data = [];
+            result = [];
+            isRequire('[name="name"]', 'Tên');
+            isRequire('[name="mail"]', 'Email');
+            checkUser();
+            checkPass();
+            isRequire('[name="repass"]', 'Repass');
+            isRequire('[name="day"]', 'Ngày');
+            isRequire('[name="month"]', 'Tháng');
+            isRequire('[name="year"]', 'Năm');
+            checkRadio();
+            checkPhone();
+            checkCheckbox();
+            checkSimilar();
+            if (!result.includes(false)) {
+                dataElement.innerHTML = '';
+                let htmls = data.map(function(eachData) {
+                    if (Array.isArray(eachData.value)) {
+                        return `
+                            ${eachData.name} : ${eachData.value.toString()} <br>
+                            `
+                    } else {
+                        return `
+                                ${eachData.name} : ${eachData.value} <br>
+                            `
+                    }
+                })
+                dataElement.innerHTML = htmls.join('');
+
+            }
+        }
+    </script>
+</body>
+
+</html>
