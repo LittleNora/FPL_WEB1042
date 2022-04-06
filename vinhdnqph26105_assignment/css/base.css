@@ -491,3 +491,24 @@ table td {
 #order-button {
     margin-top: 20px;
 }
+
+.data-form {
+    width: 50%;
+    margin: 20px auto;
+}
+
+.data {
+    display: inline-block;
+    width: 100%;
+}
+
+.data h1 {
+    color: #1a94ff;
+    width: 25%; 
+    float: left;
+    margin-right: 5px;
+}
+
+.data p {
+    color: red;
+}

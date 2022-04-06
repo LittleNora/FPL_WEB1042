@@ -23,9 +23,9 @@ function validator(selector, name) {
             if (!isChecked) {
                 parentElement.classList.add('invalid');
                 errorMessageElement.innerHTML = 'Không được để trống trường này';
-                arrBoolean.push('true');
+                arrBoolean.push(true);
             } else {
-                arrBoolean.push('false');
+                arrBoolean.push(false);
                 checkValid(parentElement, errorMessageElement);
             }
             break;
@@ -34,27 +34,27 @@ function validator(selector, name) {
                 if (!regEmail.test(value)) {
                     parentElement.classList.add('invalid');
                     errorMessageElement.innerHTML = 'Nhập đúng định dạng email';
-                    arrBoolean.push('true');
+                    arrBoolean.push(true);
                 } else {
-                    arrBoolean.push('false');
+                    arrBoolean.push(false);
                     checkValid(parentElement, errorMessageElement);
                 }
             } else if (selector === '#note') {
                 if (value.trim().length > 200) {
                     parentElement.classList.add('invalid');
                     errorMessageElement.innerText = 'Ghi chú không được quá 200 ký tự';
-                    arrBoolean.push('true');
+                    arrBoolean.push(true);
                 } else {
-                    arrBoolean.push('false');
+                    arrBoolean.push(false);
                     checkValid(parentElement, errorMessageElement);
                 }
             } else {
                 if (value.trim() == '') {
                     parentElement.classList.add('invalid');
                     errorMessageElement.innerText = 'Không để trống trường này';
-                    arrBoolean.push('true');
+                    arrBoolean.push(true);
                 } else {
-                    arrBoolean.push('false');
+                    arrBoolean.push(false);
                     checkValid(parentElement, errorMessageElement);
                 }
             }
@@ -156,8 +156,9 @@ function checkNote(selector) {
 }
 
 function printNotification() {
-    alert('Đặt hàng thành công');
+    alert('Đăng ký thành công');
 }
+
 function start() {
     isRequired('#student-id');
     isRequired('#fullname');
@@ -165,6 +166,7 @@ function start() {
     isRequired('#nationality');
     checkNote('#note');
     submitBtn.onclick = function(e) {
+        e.preventDefault();
         arrBoolean = [];
         data = [];
         validator('#student-id', 'Mã sinh viên');
@@ -174,22 +176,106 @@ function start() {
         validator('input[type="radio"]', 'Giới tính');
         validator('input[type="checkbox"]', 'Sở thích');
         validator('#note', 'Ghi chú');
-        // if (!arrBoolean.includes('true')) {
-        // let dataForm = document.querySelector('.data-form');
-        // let htmls = data.map(function(eachData) {
-        //     if (Array.isArray(eachData.value)) {
-        //         return `${eachData.name}: ${eachData.value.toString()} <br>`;
-        //     } else if (eachData.value !== '') {
-        //         return `${eachData.name}: ${eachData.value} <br>`;
-        //     }
-        // })
-        // dataForm.innerHTML = htmls.join('')
-        // }
-        if (arrBoolean.includes('true')) {
-            e.preventDefault();
-        } else {
+        if (!arrBoolean.includes(true)) {
             printNotification();
+            // let dataForm = document.querySelector('.data-form');
+            // let htmls = data.map(function(eachData) {
+            //     if (Array.isArray(eachData.value)) {
+            //         return `
+            //         <div class="data">
+            //             <h1>${eachData.name}:</h1>
+            //             <p>${eachData.value.toString()}</p>
+            //         </div>`;
+            //     } else if (eachData.value !== '') {
+            //         return `
+            //         <div class="data">
+            //             <h1>${eachData.name}:</h1>
+            //             <p>${eachData.value}</p>
+            //         </div>`;
+            //     }
+            // })
+            // dataForm.innerHTML = htmls.join('');
+            // getDataFromSearch();
+        } else {
+            
         }
     }
 }
 start();
+
+// function getDataFromSearch() {
+//     var eachDataGet;
+//     let dataGet = location.search
+//     let indices = [];
+//     var arr= [];
+//     eachDataGet = [];
+//     for (let i = 0; i < dataGet.length; i++) {
+//         if (dataGet[i] === "&") indices.push(i);
+//     }
+
+//     for (let index = -1; index < indices.length; index++) {
+//         let data = dataGet.substring(indices[index] + 1, indices[index + 1]);
+//         let dataArr = data.split("=");
+//         let dataObj = {
+//             name: dataArr[0].replace('?', ''),
+//             value: replaceCharacter(decodeURIComponent(dataArr[1]), '+', ' ')
+//         }
+//         eachDataGet.push(dataObj);
+//     }
+
+//     for (let i = 0; i < eachDataGet.length - 1; i++) {
+//         for (let j = i + 1; j < eachDataGet.length; j++) {
+//             console.log(eachDataGet[i].name, eachDataGet[j].name, i, j);
+//             if (eachDataGet[i].name === eachDataGet[j].name) {
+//                 if (!Array.isArray(eachDataGet[i].value)) {
+//                     eachDataGet[i].value = eachDataGet[i].value.split();
+//                 }
+//                 // eachDataGet[i].value.push(eachDataGet[j].value);
+//                 arr.push(j);
+//                 // eachDataGet.splice(j, 1);
+//             }
+//         }
+//     }
+
+//     for (let index = 0; index < arr.length; index++) {
+//         console.log(arr[index]);
+//         eachDataGet.splice(index, 1);
+//     }
+
+//     eachDataGet.forEach(function(data) {
+//         switch (data.name) {
+//             case 'student-id':
+//                 data.name = 'Mã sinh viên';
+//                 break;
+//             case 'fullname':
+//                 data.name = 'Họ tên';
+//                 break;
+//             case 'email':
+//                 data.name = 'Email';
+//                 break;
+//             case 'gender':
+//                 data.name = 'Giới tính';
+//                 break;
+//             case 'hobby':
+//                 data.name = 'Sở thích';
+//                 break;
+//             case 'nationality':
+//                 data.name = 'Quốc tịch';
+//                 break;
+//             case 'note':
+//                 data.name = 'Ghi chú';
+//                 break;
+//         }
+//         console.log(data);
+//     })
+
+//     function replaceCharacter(str, charNeedReplace, charReplace) {
+//         while (true) {
+//             if (str.includes(charNeedReplace)) {
+//                 str = str.replace(charNeedReplace, charReplace);
+//             } else {
+//                 return str;
+//             }
+//         }
+//     }
+// }

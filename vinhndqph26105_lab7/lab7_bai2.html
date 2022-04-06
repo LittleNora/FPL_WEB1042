@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery-3.6.0.min.js"></script>
+    <title>Lab 7 - Bài 2</title>
+</head>
+
+<body>
+    <div id="layout">
+        <select id="muc_gia">
+            <option value="0">Mức giá</option>
+            <option value="1">Dưới 200</option>
+            <option value="2">Từ 200 đến 500</option>
+            <option value="3">Trên 500</option>
+        </select>
+        <hr>
+        <table border="1" width="100%" id="san_pham">
+            <tr>
+                <td>Iphone 9</td>
+                <td>700</td>
+            </tr>
+            <tr>
+                <td>Samsung</td>
+                <td>400</td>
+            </tr>
+            <tr>
+                <td>Nokia</td>
+                <td>100</td>
+            </tr>
+            <tr>
+                <td>Sony Xperia</td>
+                <td>450</td>
+            </tr>
+            <tr>
+                <td>Motorola</td>
+                <td>180</td>
+            </tr>
+            <tr>
+                <td>Oppo</td>
+                <td>600</td>
+            </tr>
+            <tr>
+                <td>Bphone</td>
+                <td>90</td>
+            </tr>
+        </table>
+        <button id="buy">Mua</button>
+    </div>
+    <script>
+        $(function() {
+            var totalPrice = 0;
+            $('#muc_gia').change(function() {
+                var val = $(this).val();
+                totalPrice = 0;
+                $('#san_pham tr').each(function(index, tr) {
+                    var color = 'white';
+                    var price = $(tr).find('td:eq(1)').text();
+                    if (val == 1 && price < 200) {
+                        color = 'yellow';
+                        totalPrice += Number(price);
+                    } else if (val == 2 && price >= 200 && price <= 500) {
+                        totalPrice += Number(price);
+                        color = 'yellow';
+                    } else if (val == 3 && price > 500) {
+                        color = 'yellow';
+                        totalPrice += Number(price);
+                    }
+                    $(tr).css('background-color', color);
+                })
+            })
+            $('#buy').click(function() {
+                alert('Tổng tiền của các mặt hàng được chọn theo mức giá là: ' + totalPrice);
+            })
+        })
+    </script>
+</body>
+
+</html>

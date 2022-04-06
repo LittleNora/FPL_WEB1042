@@ -236,7 +236,7 @@ if (table) {
                     ${product.salePrice.toLocaleString('vi', {style : 'currency', currency : 'VND'})}
                 </td>
                 <td class="quantity-column">
-                    <input class="quantity form-control" type="number" name="quantity" min="0" max="5" value="0" disabled>
+                    <input class="quantity form-control" type="number" name="quantity" min="0" value="0" disabled>
                 </td>
                 <td class="total-price-column">
                 </td>
