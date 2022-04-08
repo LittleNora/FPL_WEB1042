@@ -22,7 +22,7 @@ function validator(selector, name) {
             })
             if (!isChecked) {
                 parentElement.classList.add('invalid');
-                errorMessageElement.innerHTML = 'Không được để trống trường này';
+                errorMessageElement.innerHTML = 'Không để trống trường này';
                 arrBoolean.push(true);
             } else {
                 arrBoolean.push(false);
@@ -155,8 +155,16 @@ function checkNote(selector) {
 
 }
 
-function printNotification() {
+function printNotification(data) {
     alert('Đăng ký thành công');
+    fullData = data.map(function(eachData) {
+        if (Array.isArray(eachData.value)) {
+            return `${eachData.name}: ${eachData.value.toString()}\n`;
+        } else if (eachData.value !== '') {
+            return `${eachData.name}: ${eachData.value}\n`;
+        }
+    })
+    alert(fullData.join(''));
 }
 
 function start() {
@@ -177,28 +185,28 @@ function start() {
         validator('input[type="checkbox"]', 'Sở thích');
         validator('#note', 'Ghi chú');
         if (!arrBoolean.includes(true)) {
-            printNotification();
+            printNotification(data);
+            document.getElementById('signup-form').reset();
             // let dataForm = document.querySelector('.data-form');
             // let htmls = data.map(function(eachData) {
-            //     if (Array.isArray(eachData.value)) {
-            //         return `
-            //         <div class="data">
-            //             <h1>${eachData.name}:</h1>
-            //             <p>${eachData.value.toString()}</p>
-            //         </div>`;
-            //     } else if (eachData.value !== '') {
-            //         return `
-            //         <div class="data">
-            //             <h1>${eachData.name}:</h1>
-            //             <p>${eachData.value}</p>
-            //         </div>`;
+            //         if (Array.isArray(eachData.value)) {
+            //                 return `
+            //                 <div class="data">
+            //                     <h1>${eachData.name}:</h1>
+            //                     <p>${eachData.value.toString()}</p>
+            //                 </div>`;
+            //             } else if (eachData.value !== '') {
+            //                     return `
+            //                     <div class="data">
+            //                         <h1>${eachData.name}:</h1>
+            //                         <p>${eachData.value}</p>
+            //                     </div>`;
             //     }
             // })
             // dataForm.innerHTML = htmls.join('');
+            // dataForm.classList.add('have-data');
             // getDataFromSearch();
-        } else {
-            
-        }
+        } else {}
     }
 }
 start();

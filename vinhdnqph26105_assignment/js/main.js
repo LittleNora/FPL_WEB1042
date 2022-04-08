@@ -296,6 +296,6 @@ if (table) {
     }
 
     function printNotification() {
-        alert('Đặt hàng thành công')
+        alert('Đặt hàng thành công');
     }
 }
