@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 1</title>
+    <style>
+        #container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        #container #img-bai1 {
+            width: 750px;
+            height: 500px;
+            border-radius: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <button id="prev">Previous</button>
+        <img id="img-bai1" src="img/anh1.jpg" alt="">
+        <button id="next">Next</button>
+    </div>
+    <script>
+        var imgs = [
+            './img/anh1.jpg',
+            './img/anh2.jpg',
+            './img/anh3.png',
+            './img/anh4.png',
+            './img/anh5.png'
+        ]
+
+        var prevBtn = document.querySelector('#prev');
+        var nextBtn = document.querySelector('#next');
+        var imgBox = document.querySelector('#img-bai1');
+        var index = 0;
+        var imgsLength = imgs.length;
+
+        prevBtn.onclick = function() {
+            if (index == 0) {
+                index = imgsLength - 1;
+            } else {
+                index--;
+            }
+            imgBox.src = imgs[index];
+        }
+
+        nextBtn.onclick = function() {
+            if (index == imgsLength - 1) {
+                index = 0;
+            } else {
+                index++;
+            }
+            imgBox.src = imgs[index];
+        }
+
+        setInterval(function() {
+            nextBtn.click();
+        }, 2000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 2</title>
+    <style>
+        #container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px 10px;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 0 10px #000;
+            box-sizing: border-box;
+        }
+        
+        #container h1 {
+            color: #05c3ed;
+            margin: 0;
+        }
+        
+        #form-bai2 {
+            width: 80%;
+            margin: 0 auto;
+            padding: 10px 0;
+        }
+        
+        .form-group {
+            margin: 10px 0;
+            padding: 10px 0;
+        }
+        
+        .form-group label {
+            float: left;
+            width: 42%;
+            text-align: left;
+            color: #05c3ed;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .form-group input[type="text"] {
+            width: 50%;
+            float: right;
+            outline: none;
+            transition: all 0.2s linear;
+        }
+        
+        .form-group .error-message {
+            width: 100%;
+            color: rgba(255, 0, 0, 0.7);
+            float: right;
+            text-align: right;
+        }
+        
+        #form-bai2 button {
+            margin-top: 20px;
+            width: 80%;
+            padding: 10px 0;
+            border-radius: 15px;
+            border: none;
+            background-color: #05c3ed;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            transition: all 0.2s linear;
+            cursor: pointer;
+        }
+        
+        #form-bai2 button:hover {
+            color: #777;
+            background-color: #86ffc2;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Đăng ký thành viên</h1>
+        <form action="" onsubmit="return validate()" id="form-bai2">
+            <div class="form-group">
+                <label for="">Họ tên</label>
+                <input type="text" name="name" id="name">
+                <br>
+                <span class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="">Email</label>
+                <input type="text" name="email" id="email">
+                <br>
+                <span class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="">Số điện thoại</label>
+                <input type="text" name="phone-number" id="phone-number">
+                <br>
+                <span class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="">User</label>
+                <input type="text" name="user" id="user">
+                <br>
+                <span class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="">Pass</label>
+                <input type="text" name="pass" id="pass">
+                <br>
+                <span class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="">Repass</label>
+                <input type="text" name="repass" id="repass">
+                <br>
+                <span class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="">Bạn biết chúng tôi</label>
+                <input type="radio" name="know-from" value="Bạn giới thiệu"> Bạn giới thiệu
+                <input type="radio" name="know-from" value="Qua FB"> Qua FB
+                <br>
+                <span class="error-message error-radio"></span>
+            </div>
+            <button>Đăng ký</button>
+        </form>
+    </div>
+    <script>
+        var isValidateArr;
+
+        function validate() {
+            isValidateArr = [];
+            // Check name
+            var nameElement = document.querySelector('input[name="name"]');
+            var errorMessageName = nameElement.parentElement.querySelector('span');
+            var isName = true;
+            nameElement.oninput = function() {
+                nameElement.style.borderColor = 'black';
+                errorMessageName.innerText = '';
+            }
+            if (nameElement.value === '') {
+                errorMessageName.innerText = 'Vui lòng nhập trường này';
+                nameElement.style.borderColor = 'red';
+                isName = false;
+            } else {
+                nameElement.style.borderColor = 'black';
+                errorMessageName.innerText = '';
+                isName = true;
+            }
+            isValidateArr.push(isName);
+
+            // Check email
+            var regEmail = /^\w+@\w+.\w+/;
+            var emailElement = document.querySelector('input[name="email"]');
+            var isEmail = true;
+            var errorMessageEmail = emailElement.parentElement.querySelector('span');
+            emailElement.oninput = function() {
+                emailElement.style.borderColor = 'black';
+                errorMessageEmail.innerText = '';
+            }
+            if (emailElement.value === '') {
+                emailElement.style.borderColor = 'red';
+                errorMessageEmail.innerText = 'Vui lòng nhập trường này';
+                isEmail = false;
+            } else if (!regEmail.test(emailElement.value)) {
+                emailElement.style.borderColor = 'red';
+                errorMessageEmail.innerText = 'Nhập đúng định dạng email';
+                isEmail = false;
+            } else {
+                emailElement.style.borderColor = 'black';
+                errorMessageEmail.innerText = '';
+                isEmail = true;
+            }
+            isValidateArr.push(isEmail);
+
+            // Check phone number
+            var phoneNumber = document.querySelector('input[name="phone-number"]');
+            var errorMessagePhoneNumber = phoneNumber.parentElement.querySelector('span');
+            var isPhoneNumber = true;
+            phoneNumber.oninput = function() {
+                phoneNumber.style.borderColor = 'black';
+                errorMessagePhoneNumber.innerText = '';
+            }
+            if (phoneNumber.value === '') {
+                errorMessagePhoneNumber.innerText = 'Vui lòng nhập trường này';
+                phoneNumber.style.borderColor = 'red';
+                isPhoneNumber = false;
+            } else {
+                phoneNumber.style.borderColor = 'black';
+                errorMessagePhoneNumber.innerText = '';
+                isPhoneNumber = true;
+            }
+            isValidateArr.push(isPhoneNumber);
+
+            // Check user
+            var userElement = document.querySelector('input[name="user"]');
+            var isUser = true;
+            var errorMessageUser = userElement.parentElement.querySelector('span');
+            userElement.oninput = function() {
+                userElement.style.borderColor = 'black';
+                errorMessageUser.innerText = '';
+            }
+            if (userElement.value === '') {
+                userElement.style.borderColor = 'red';
+                errorMessageUser.innerText = 'Vui lòng nhập trường này';
+                isUser = false;
+            } else if (userElement.value.length < 8) {
+                userElement.style.borderColor = 'red';
+                errorMessageUser.innerText = 'User không được nhỏ hơn 8 ký tự';
+                isUser = false;
+            } else {
+                userElement.style.borderColor = 'black';
+                errorMessageUser.innerText = '';
+                isUser = true;
+            }
+            isValidateArr.push(isUser);
+
+            // Check pass
+            var passElement = document.querySelector('input[name="pass"]');
+            var errorMessagePass = passElement.parentElement.querySelector('span');
+            var isPass = true;
+            passElement.oninput = function() {
+                passElement.style.borderColor = 'black';
+                errorMessagePass.innerText = '';
+            }
+            if (passElement.value === '') {
+                passElement.style.borderColor = 'red';
+                errorMessagePass.innerText = 'Vui lòng nhập trường này';
+                isPass = false;
+            } else {
+                passElement.style.borderColor = 'black';
+                isPass = true;
+                errorMessagePass.innerText = '';
+            }
+            isValidateArr.push(isPass);
+
+            // // Check repass
+            var repassElement = document.querySelector('input[name="repass"]');
+            var errorMessageRepass = repassElement.parentElement.querySelector('span');
+            var isRepass = true;
+            repassElement.oninput = function() {
+                repassElement.style.borderColor = 'black';
+                errorMessageRepass.innerText = '';
+            }
+            if (repassElement.value === '') {
+                repassElement.style.borderColor = 'red';
+                errorMessageRepass.innerText = 'Vui lòng nhập trường này';
+                isRepass = false;
+            } else if (repass.value !== pass.value) {
+                repassElement.style.borderColor = 'red';
+                errorMessageRepass.innerText = 'Pass phải trùng Repass';
+                isRepass = false;
+            } else {
+                repassElement.style.borderColor = 'black';
+                isRepass = true;
+                errorMessageRepass.innerText = '';
+            }
+            isValidateArr.push(isRepass);
+
+            // Check radio button
+            var radioElements = document.querySelectorAll('input[type="radio"]');
+            var errorMessageRadio = document.querySelector('span.error-radio');
+            var isChecked = false;
+            for (var radioElement of radioElements) {
+                if (radioElement.checked) {
+                    isChecked = true;
+                }
+                if (!isChecked) {
+                    errorMessageRadio.innerText = 'Vui lòng chọn trường này';
+                } else {
+                    errorMessageRadio.innerText = '';
+                }
+                isValidateArr.push(isChecked);
+            }
+            if (isValidateArr.includes(false)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        // validate();
+    </script>
+</body>
+
+</html>
