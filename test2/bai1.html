@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 1</title>
+    <style>
+        #container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #img-bai1 {
+            width: 800px;
+            height: 500px;
+            border-radius: 20px;
+        }
+
+        .control-box {
+            width: 100%;
+        }
+        
+        .control-child {
+            display: inline-block;
+        }
+
+        .button {
+            background-color: rgb(41, 186, 211);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <img src="./img/anh1.jpg" id="img-bai1">
+        <br>
+        <div class="control-box">
+            <button id="stop" class="control-child button">Stop</button>
+            <div class="control-child info">
+                <span class="current-slide">1</span> /
+                <span class="total-slide">5</span>
+            </div>
+            <button id="start" class="control-child button">Start</button>
+        </div>
+    </div>
+    <script>
+        var imgs = [
+            './img/anh1.jpg',
+            './img/anh2.jpg',
+            './img/anh3.png',
+            './img/anh4.png',
+            './img/anh5.png',
+        ];
+        var auto;
+        var startBtn = document.querySelector('#start');
+        var stopBtn = document.querySelector('#stop');
+        var currentSlide = document.querySelector('.current-slide');
+        var totalSlide = document.querySelector('.total-slide');
+        totalSlide.innerHTML = imgs.length;
+        var img = document.querySelector('#img-bai1')
+        var index = 0;
+
+        function clickBtn() {
+            if (index === imgs.length - 1) {
+                index = 0;
+            } else {
+                index++;
+            }
+            img.src = imgs[index];
+            currentSlide.innerHTML = index + 1;
+        }
+        startBtn.onclick = function() {
+            auto = setInterval(clickBtn, 2000);
+        }
+        stopBtn.onclick = function() {
+            clearInterval(auto);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 2</title>
+    <style>
+        #container {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            border: 2px solid red;
+            padding: 20px;
+            border-radius: 20px;
+            box-sizing: border-box;
+        }
+        
+        #hoc-phi-them {
+            display: none;
+        }
+        
+        span {
+            color: red;
+        }
+
+        #form {
+            width: 70%;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .form-group .error-message {
+            position: absolute;
+            top: 22px;
+            right: 65px;
+        }
+
+        .form-group label {
+            float: left;
+            width: 35%;
+            text-align: left;
+        }
+        
+        button {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Đăng kí khóa học online</h1>
+        <form action="" id="form">
+            <div class="form-group">
+                <label for="">Họ tên</label>
+                <input type="text" name="name" id="name">
+                <span class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="">Email</label>
+                <input type="text" name="email" id="email">
+                <span class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="">Số điện thoại</label>
+                <input type="text" name="phone-number" id="phone-number">
+                <span class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="">Khóa học</label>
+                <select name="courses" id="courses">
+                    <option value="html">HTML</option>
+                    <option value="js">JS</option>
+                    <option value="php">PHP</option>
+                </select>
+                <span class="error-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="">Học phí</label>
+                <input type="text" disabled id="hocphi" value="500">
+            </div>
+            <div class="form-group">
+                <label for="">Hình thức học</label>
+                <input type="radio" name="ht" onclick="tinhhocphi(true)" value="offline"> Tại trường
+                <input type="radio" name="ht" onclick="tinhhocphi(false)" value="online"> Học online
+                <span class="error-message error-message-radio"></span>
+            </div>
+            <div class="form-group" id="hoc-phi-them">
+                <label for="">Học phí thêm</label>
+                <input type="text" disabled id="hocphithem" value="0">
+            </div>
+            <button>Đăng ký</button>
+        </form>
+    </div>
+    <script>
+        var formElement = document.querySelector('#form');
+        formElement.onsubmit = function(e) {
+            e.preventDefault();
+            validate();
+        }
+        var regEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        var regPhone = /^0\d(9)$/;
+        var courses = document.querySelector('#courses');
+        var hocphi = document.querySelector('#hocphi');
+        courses.onchange = function() {
+            switch (courses.value) {
+                case 'html':
+                    hocphi.value = '500';
+                    break;
+                case 'js':
+                    hocphi.value = '800';
+                    break;
+                case 'php':
+                    hocphi.value = '1000';
+                    break;
+            }
+        }
+        var hocPhiThemElement = document.querySelector('#hoc-phi-them');
+        var hocPhiThemInput = document.querySelector('#hocphithem');
+        var errorMessageRadio = document.querySelector('.error-message-radio');
+
+        function tinhhocphi(check) {
+            if (check) {
+                hocPhiThemElement.style.display = 'block';
+                hocPhiThemInput.value = 10;
+            } else {
+                hocPhiThemElement.style.display = 'none';
+                hocPhiThemInput.value = 0;
+            }
+            errorMessageRadio.innerHTML = '';
+        }
+        var inputElements = document.querySelectorAll('input[type="text"]:not([disabled])');
+
+        inputElements.forEach(function(inputElement) {
+            let errorMessage = inputElement.parentElement.querySelector('.error-message');
+            inputElement.oninput = function() {
+                errorMessage.innerHTML = '';
+                inputElement.style.borderColor = 'black';
+            }
+        })
+
+        function validate() {
+            var isChecked = false;
+            inputElements.forEach(function(inputElement) {
+                let errorMessage = inputElement.parentElement.querySelector('.error-message');
+                if (inputElement.value === '') {
+                    errorMessage.innerHTML = 'Vui lòng nhập vào trường này';
+                    inputElement.style.borderColor = 'red';
+                } else if (inputElement.matches('#email')) {
+                    if (!regEmail.test(inputElement.value)) {
+                        errorMessage.innerHTML = 'Nhập đúng định dạng email';
+                        inputElement.style.borderColor = 'red';
+                    } else {
+                        errorMessage.innerHTML = '';
+                        inputElement.style.borderColor = 'black';
+                    }
+                } else if (inputElement.matches('#phone-number')) {
+                    if(!regPhone.test(inputElement.value)) {
+                        errorMessage.innerHTML = 'Nhập đúng số điện thoại';
+                        inputElement.style.borderColor = 'red';
+                    } else {
+                        errorMessage.innerHTML = '';
+                        inputElement.style.borderColor = 'black';
+                    }
+                }
+                 else {
+                    errorMessage.innerHTML = '';
+                    inputElement.style.borderColor = 'black';
+                }
+            })
+
+            document.querySelectorAll('input[name="ht"]').forEach(function(input) {
+                if (input.checked) {
+                    isChecked = true;
+                }
+            });
+            if (!isChecked) {
+                errorMessageRadio.innerHTML = 'Hãy chọn hình thức học';
+            } else {
+                errorMessageRadio.innerHTML = '';
+            }
+        }
+    </script>
+</body>
+
+</html>
